@@ -1,6 +1,6 @@
 # Trello Sprint Stats Chrome Extension
 
-A chrome extension that
+A chrome extension that displays stats of the current sprint on a Trello board. This includes the number of cards move to Done in the current sprint and a burn down chart.
 
 ## Setup
 
