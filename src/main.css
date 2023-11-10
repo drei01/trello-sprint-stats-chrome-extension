@@ -1,0 +1,10 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body, #root {
+	min-width: 400px;
+	min-height: 800px;
+	background:#F0F0F0;
+	font:14px "Helvetica Neue",Arial,Helvetica,sans-serif;
+}
