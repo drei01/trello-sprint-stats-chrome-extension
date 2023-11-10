@@ -9,12 +9,22 @@ interface Props {
     cardsByList: { [key: string]: TrelloCard[] };
     doneColumnIds: string[];
     sprintLabels: string[];
+    cardIds: string[];
 }
 
-export default function SprintStatsGraph({ startDate, endDate, cardsByList, doneColumnIds, sprintLabels }: Props) {
+export default function SprintStatsGraph({
+    startDate,
+    endDate,
+    cardsByList,
+    doneColumnIds,
+    sprintLabels,
+    cardIds,
+}: Props) {
     const sprintCards = Object.values(cardsByList)
         .flat()
-        .filter((card) => card.labels.some((label) => sprintLabels.includes(label.name)));
+        .filter(
+            (card) => cardIds.includes(card.shortLink) || card.labels.some((label) => sprintLabels.includes(label.name))
+        );
     const doneCards = sprintCards.filter((card) => doneColumnIds.includes(card.idList));
     const doneCardsByLastActivity = doneCards.reduce<TrelloCard[][]>((acc, card) => {
         const lastActivity = dayjs(card.dateLastActivity);
@@ -33,7 +43,7 @@ export default function SprintStatsGraph({ startDate, endDate, cardsByList, done
         } else if (i === weeksWithRefinement - 1) {
             return { x: i, y: 0 };
         } else {
-            return { x: i, y: Math.floor(totalCards - (totalCards / weeksWithRefinement) * i) };
+            return { x: i, y: totalCards - (totalCards / weeksWithRefinement) * i };
         }
     });
     const dataActual = Array.from({ length: weeksWithRefinement }).map((_, i) => {
@@ -53,6 +63,7 @@ export default function SprintStatsGraph({ startDate, endDate, cardsByList, done
             <div className="flex flex-col">
                 <div>Weeks: {weeks}</div>
                 <div>Total cards: {totalCards}</div>
+                <div>Sprint Card Ids: {cardIds.length}</div>
                 <div className="w-full h-96">
                     <ResponsiveLine
                         data={[

@@ -64,7 +64,7 @@ export class TrelloChrome {
             return;
         }
 
-        var redirectUrl = chrome.identity.getRedirectURL('/trello');
+        var redirectUrl = chrome.identity.getRedirectURL('trello');
         var authUrl =
             TrelloContext.urlRoot +
             '/authorize?' +
