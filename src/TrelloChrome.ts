@@ -2,7 +2,10 @@ import { TrelloBoard } from './trelloboard';
 import { TrelloCard } from './trellocard';
 import { TrelloList } from './trellolist';
 
-const TRELLO_API_KEY = '***REMOVED***';
+const TRELLO_API_KEY = process.env.TRELLO_API_KEY || '';
+if (!TRELLO_API_KEY) {
+    throw new Error('TRELLO_API_KEY not set. Add it to your .env file');
+}
 
 class TrelloContext {
     private static key: string;
