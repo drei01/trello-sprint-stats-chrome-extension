@@ -2,6 +2,7 @@ import { Line, ResponsiveLine } from '@nivo/line';
 import dayjs from 'dayjs';
 import React from 'react';
 import { TrelloCard } from './trellocard';
+import { Badge } from '@mantine/core';
 
 interface Props {
     startDate: Date;
@@ -61,9 +62,14 @@ export default function SprintStatsGraph({
     return (
         <>
             <div className="flex flex-col">
-                <div>Weeks: {weeks}</div>
-                <div>Total cards: {totalCards}</div>
-                <div>Sprint Card Ids: {cardIds.length}</div>
+                <div className="flex space-x-2 py-2">
+                    <Badge color="dark" rightSection={weeks}>
+                        Weeks:
+                    </Badge>
+                    <Badge color="gray" rightSection={cardIds.length}>
+                        Cards:{' '}
+                    </Badge>
+                </div>
                 <div className="w-full h-96">
                     <ResponsiveLine
                         data={[
